@@ -24,6 +24,13 @@ impl Vec3 {
         lhs.x * rhs.x + lhs.y * rhs.y + lhs.z + rhs.z
     }
 
+    pub fn corss(lhs: &Vec3, rhs: &Vec3) -> Vec3 {
+        let x = lhs.y * rhs.z - lhs.z * rhs.y;
+        let y = lhs.z * rhs.x - lhs.x * rhs.z;
+        let z = lhs.x * rhs.y - lhs.y * rhs.x;
+        Vec3::from(x, y, z)
+    }
+
     pub fn length(&self) -> f32 {
         self.length_squared().sqrt()
     }
@@ -38,33 +45,41 @@ impl Vec3 {
 }
 
 impl Add for Vec3 {
-    type Output = Self;
+    type Output = Vec3;
 
-    fn add(self, rhs: Self) -> Self::Output {
-        Self::from(self.x + rhs.x, self.y + rhs.y, self.z + rhs.z)
+    fn add(self, rhs: Vec3) -> Vec3 {
+        Vec3::from(self.x + rhs.x, self.y + rhs.y, self.z + rhs.z)
     }
 }
 
 impl Sub for Vec3 {
-    type Output = Self;
+    type Output = Vec3;
 
-    fn sub(self, rhs: Self) -> Self::Output {
-        Self::from(self.x - rhs.x, self.y - rhs.y, self.z - rhs.z)
+    fn sub(self, rhs: Vec3) -> Vec3 {
+        Vec3::from(self.x - rhs.x, self.y - rhs.y, self.z - rhs.z)
     }
 }
 
 impl Mul<f32> for Vec3 {
-    type Output = Self;
+    type Output = Vec3;
 
-    fn mul(self, rhs: f32) -> Self::Output {
-        Self::from(self.x * rhs, self.y * rhs, self.z * rhs)
+    fn mul(self, rhs: f32) -> Vec3 {
+        Vec3::from(self.x * rhs, self.y * rhs, self.z * rhs)
+    }
+}
+
+impl Mul<Vec3> for f32 {
+    type Output = Vec3;
+
+    fn mul(self, rhs: Vec3) -> Vec3 {
+        Vec3::from(self * rhs.x, self * rhs.y, self * rhs.z)
     }
 }
 
 impl Div<f32> for Vec3 {
-    type Output = Self;
+    type Output = Vec3;
 
-    fn div(self, rhs: f32) -> Self::Output {
-        Self::from(self.x / rhs, self.y / rhs, self.z / rhs)
+    fn div(self, rhs: f32) -> Vec3 {
+        Vec3::from(self.x / rhs, self.y / rhs, self.z / rhs)
     }
 }

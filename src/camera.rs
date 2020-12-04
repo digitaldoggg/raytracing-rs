@@ -1,1 +1,1 @@
-
+struct Camera {}
